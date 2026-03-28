@@ -10,10 +10,9 @@ RUN git clone https://github.com/NousResearch/hermes-agent.git /hermes
 WORKDIR /hermes
 RUN uv venv venv --python 3.11 && \
     . venv/bin/activate && \
-    uv pip install -e .
+    uv pip install -e ".[all]"
 
-ENV TELEGRAM_BOT_TOKEN=""
-ENV TELEGRAM_USER_ID=""
-ENV OPENROUTER_API_KEY=""
-
-CMD mkdir -p ~/.hermes && echo "{\"model_provider\":\"openrouter\",\"api_key\":\"$OPENROUTER_API_KEY\",\"model\":\"nousresearch/hermes-3-llama-3.1-405b:free\",\"gateway\":{\"type\":\"telegram\",\"bot_token\":\"$TELEGRAM_BOT_TOKEN\",\"allowed_users\":[\"$TELEGRAM_USER_ID\"]}}" > ~/.hermes/config.json && /hermes/venv/bin/hermes
+CMD mkdir -p ~/.hermes && \
+    printf "OPENROUTER_API_KEY=%s\nTELEGRAM_BOT_TOKEN=%s\nTELEGRAM_ALLOWED_USERS=%s\n" \
+    "$OPENROUTER_API_KEY" "$TELEGRAM_BOT_TOKEN" "$TELEGRAM_ALLOWED_USERS" > ~/.hermes/.env && \
+    /hermes/venv/bin/hermes gateway
