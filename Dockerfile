@@ -15,4 +15,4 @@ RUN uv venv venv --python 3.11 && \
 CMD mkdir -p ~/.hermes && \
     printf "KIMI_API_KEY=%s\nTELEGRAM_BOT_TOKEN=%s\nTELEGRAM_ALLOWED_USERS=%s\n" \
     "$KIMI_API_KEY" "$TELEGRAM_BOT_TOKEN" "$TELEGRAM_ALLOWED_USERS" > ~/.hermes/.env && \
-    /hermes/venv/bin/hermes gateway --provider kimi-coding --model moonshot-v1-auto
+    /hermes/venv/bin/hermes gateway run
