@@ -13,6 +13,6 @@ RUN uv venv venv --python 3.11 && \
     uv pip install -e ".[all]"
 
 CMD mkdir -p ~/.hermes && \
-    printf "KIMI_API_KEY=%s\nTELEGRAM_BOT_TOKEN=%s\nTELEGRAM_ALLOWED_USERS=%s\n" \
-    "$KIMI_API_KEY" "$TELEGRAM_BOT_TOKEN" "$TELEGRAM_ALLOWED_USERS" > ~/.hermes/.env && \
+    printf "OPENROUTER_API_KEY=%s\nOPENROUTER_MODEL=meta-llama/llama-3.3-70b-instruct:free\nTELEGRAM_BOT_TOKEN=%s\nTELEGRAM_ALLOWED_USERS=%s\n" \
+    "$OPENROUTER_API_KEY" "$TELEGRAM_BOT_TOKEN" "$TELEGRAM_ALLOWED_USERS" > ~/.hermes/.env && \
     /hermes/venv/bin/hermes gateway run
